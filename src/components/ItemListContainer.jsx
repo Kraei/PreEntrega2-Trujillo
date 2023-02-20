@@ -2,8 +2,10 @@ import React from 'react'
 import ItemList from './ItemList';
 import {useState} from 'react';
 import { useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = ({saludo}) => {
+const ItemListContainer = () => {
+  const {category} = useParams();
   const getProducts = async () => {
     const response = await fetch('https://fakestoreapi.com/products');
     //console.log(response);
@@ -11,6 +13,14 @@ const ItemListContainer = ({saludo}) => {
     //console.log(data);
     return data;
   };
+
+  // const getProducts = async () => {
+  //   const response = await fetch('https://fakestoreapi.com/products');
+  //   //console.log(response);
+  //   const data = await response.json();
+  //   //console.log(data);
+  //   return data;
+  // };
 
   const [products, setProducts] = useState([]);
   console.log(products)
@@ -28,11 +38,13 @@ const ItemListContainer = ({saludo}) => {
 
   getProducts();
 
+  const catFilter = products.filter((item) => item.category === category);
+
     
   return (
   <>
     <div>
-        <h1>{saludo}</h1>
+        {category ? <ItemList items={catFilter}/> : <ItemList items={products} />}
         
     </div>
     {renderProducts}
