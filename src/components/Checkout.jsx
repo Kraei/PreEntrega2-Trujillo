@@ -7,8 +7,8 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { AddShoppingCart } from "@mui/icons-material";
-import { actionTypes } from "../reducer";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CartWidget from "./CartWidget";
 import { useStateValue } from "../StateProvider";
 
 const ExpandMore = styled((props) => {
@@ -22,38 +22,16 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ItemList({
-  title,
-  price,
-  image,
-  description,
-  category,
-  rating,
-  id,
-}) {
+export default function Checkout({ title, price, image, category }) {
   const [expanded, setExpanded] = React.useState(false);
-
-  const [{cart}, dispatch] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const addToBasket = () => {
-    dispatch({
-      type: actionTypes.ADD_TO_CART,
-      item: {
-        id,
-        title,
-        category,
-        image,
-        price,
-        description,
-      }
-    })
-  }
-
   return (
+    <>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         action={
@@ -61,27 +39,21 @@ export default function ItemList({
             ${price}
           </Typography>
         }
-        title={category}
+        title={title}
         subheader="stock"
       />
-      <CardMedia component="img" height="194" image={image} alt={category} />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {title}
-        </Typography>
-      </CardContent>
+      <CardMedia component="img" height="194" image={image} alt="Paella dish" />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to cart" onClick= {addToBasket}>
-          <AddShoppingCart fontSize="large" />
-        </IconButton>
-        <IconButton aria-label="share">
           {Array(4)
             .fill()
             .map((_, i) => (
               <p>&#11088;</p>
             ))}
+        <IconButton>
+          <DeleteIcon />
         </IconButton>
       </CardActions>
     </Card>
+    </>
   );
 }

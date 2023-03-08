@@ -1,36 +1,29 @@
-//import { ChakraProvider } from '@chakra-ui/react'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import NavBar from './components/NavBar'
-import ItemListContainer from './components/ItemListContainer'
-import './App.css'
-import Home from './components/Home';
-import Catalogue from './components/Catalogue';
-import ItemDetailContainer from './components/ItemDetailContainer';
+import { useState } from "react";
+import "./App.css";
+import Checkout from "./components/Checkout";
+import ItemDetailContainer from "./components/ItemDetailContainer";
+import ItemListContainer from "./components/ItemListContainer";
+import NavBar from "./components/NavBar";
+import CartWidget from "./components/CartWidget";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const App = () => {
-  const siteName = 'Soulmate';
-  const saludo = 'Bienvenido a Soulmate';
-  
+function App() {
   return (
-  <BrowserRouter>
-   <>
-      <h1>{siteName}</h1>
-      <NavBar/>
-      <Routes>
-        <Route exact path='/' element = {<Home/>}/>
-        <Route path='/catalogue' element = {<Catalogue/>}/>
-        {/* <Route exact path="/catalogue" element={<ItemListContainer />} /> */}
-        <Route
-          exact
-          path="/category/:category"
-          element={<ItemListContainer />}
-        />
-        <Route exact path="/item/:id" element={<ItemDetailContainer />} />
-      </Routes>
-   </>
-  </BrowserRouter>
-  
+    <BrowserRouter>
+      <>
+        <h1>Soulmate</h1>
+        <NavBar />
+        <Routes>
+          <Route exact path='/' element={<ItemListContainer />}/>
+          <Route path='CartWidget' element={<CartWidget />}/>
+          {/* <ItemDetailContainer/> */}
+
+          {/* <Checkout/> */}
+          {/* <CartWidget/> */}
+        </Routes>
+      </>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
